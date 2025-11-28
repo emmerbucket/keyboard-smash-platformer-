@@ -2,7 +2,7 @@ import arcade
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
-SCREEN_TITLE = "epic platformer"
+SCREEN_TITLE = "Keyboard Smash"
 
 class MyGame(arcade.Window):
 
