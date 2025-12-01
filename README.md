@@ -1,5 +1,11 @@
-# Keyboard-smash-Platformer-
+# -Keyboard smash-
 Een platformer met inspiratie van Celeste. gemaakt voor een Informatica PO.
 
-# Taakverdeling
-Sprites & art - Jayvin GitHub: https://github.com/JayvinImperialSupport
+# Credits
+Sprites & art - Jayvin Kortink | github: https://github.com/JayvinImperialSupport
+
+Player character interactions & abilities - Ola Makowska | github: https://github.com/olamako
+
+Environment & hazard interactions - Steyn Lohmeijer | github: https://github.com/emmerbucket
+
+Debugging - Kylian Schenk | github: https://github.com/LookAtThese1
