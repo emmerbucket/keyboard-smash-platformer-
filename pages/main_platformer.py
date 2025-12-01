@@ -12,6 +12,18 @@ class MyGame(arcade.Window):
 
         arcade.set_background_color(arcade.csscolor.BLACK)
 
+        arcade.PhysicsEnginePlatformer
+
+        self.background = []
+
+        self.walls = []
+
+        self.player = []
+
+        self.physics_engine = []
+
+        self.level = []
+
     def setup(self):
         pass
 
