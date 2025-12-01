@@ -1,9 +1,21 @@
 import pygame
 
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Keyboard Smash"
+GAME_WIDTH = 800
+GAME_HEIGHT = 600
 
+pygame.init()
+window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT ))
+pygame.display.set_caption("Keyboard Smash")
+clock = pygame.time.Clock()
+
+while True: 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: 
+            pygame.quit()
+            exit()
+
+    pygame.display.update()
+    clock.tick(24)
 
 class Player():
     def __init__(self, x, y):
