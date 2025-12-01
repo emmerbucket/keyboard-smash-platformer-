@@ -1,4 +1,4 @@
-# Keyboard-smash-Platformer-
+# -Keyboard smash-
 Een platformer met inspiratie van Celeste. gemaakt voor een Informatica PO.
 
 # Credits
