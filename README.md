@@ -8,4 +8,4 @@ Player character interactions & abilities - Ola Makowska | github: https://githu
 
 Environment & hazard interactions - Steyn Lohmeijer | github: https://github.com/emmerbucket
 
-Debugging - Kylian Schenk | github: https://github.com/LookAtThese1
+Backgrounds & Debugging - Kylian Schenk | github: https://github.com/LookAtThese1
