@@ -1,5 +1,10 @@
 import pygame
 
+background = []
+walls = []
+player = []
+levelcount = 0
+
 GAME_WIDTH = 800
 GAME_HEIGHT = 600
 
@@ -22,7 +27,7 @@ while True:
             super().__init__()
 
             self.image = pygame.Surface([15, 15])
-            self.image.fill(WHITE)
+            self.image.fill(color=(255, 255, 255))
 
             self.change_x = 0
             self.change_y = 0
