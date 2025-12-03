@@ -1,6 +1,7 @@
 import pygame
+import os
 
-background = []
+background = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', 'download (1).png'))
 walls = []
 player = []
 levelcount = 0
