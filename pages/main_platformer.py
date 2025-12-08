@@ -1,7 +1,8 @@
 import pygame
 import os
 
-background = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', 'download (2).png'))
+background = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', 'chirstmasbackground2.png'))
+background = pygame.transform.scale(background, (800, 600))
 walls = []
 player = []
 levelcount = 0
@@ -20,6 +21,7 @@ while True:
             pygame.quit()
             exit()
 
+    window.blit(background, (0, 0))
     pygame.display.update()
     clock.tick(24)
 
