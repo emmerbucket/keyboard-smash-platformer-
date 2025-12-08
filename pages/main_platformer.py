@@ -11,7 +11,7 @@ GAME_WIDTH = 800
 GAME_HEIGHT = 600
 
 pygame.init()
-window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT ))
+window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 pygame.display.set_caption("Keyboard Smash")
 clock = pygame.time.Clock()
 
