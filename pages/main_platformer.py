@@ -1,7 +1,7 @@
 import pygame
 import os
 
-background = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', 'chirstmasbackground2.png'))
+background = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', 'christmasbackground1.png'))
 background = pygame.transform.scale(background, (800, 600))
 walls = []
 player = []
