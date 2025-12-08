@@ -51,6 +51,8 @@ while True:
     draw()
 
     window.blit(background, (0, 0))
+    window.blit(player.image, player.rect)
+
     pygame.display.update()
     clock.tick(24)
 
