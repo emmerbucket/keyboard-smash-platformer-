@@ -11,7 +11,7 @@ GAME_WIDTH = 800
 GAME_HEIGHT = 600
 
 pygame.init()
-window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
+window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT ))
 pygame.display.set_caption("Keyboard Smash")
 clock = pygame.time.Clock()
 
@@ -21,6 +21,8 @@ class Player():
 
             self.image = pygame.Surface([15, 15])
             self.image.fill(color=(255, 255, 255))
+
+            self.rect = self.image.get_rect(topleft=(x, y))
 
             self.change_x = 0
             self.change_y = 0
