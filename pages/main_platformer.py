@@ -34,6 +34,7 @@ class Player():
         def update(self):
             self.rect.x += self.change_x
 
+
 player = Player(200, 200)
 
 def draw():
@@ -46,7 +47,18 @@ while True:
         if event.type == pygame.QUIT: 
             pygame.quit()
             exit()
-    
+
+    keys = pygame.key.get_pressed()
+
+    player.change_x = 0
+    player.change_y = 0
+
+    if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+        player.change_x = -5
+    if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+        player.change_x = 5
+
+
     player.update()
     draw()
 
