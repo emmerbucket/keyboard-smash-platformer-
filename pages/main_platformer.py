@@ -15,17 +15,7 @@ window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT ))
 pygame.display.set_caption("Keyboard Smash")
 clock = pygame.time.Clock()
 
-while True: 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: 
-            pygame.quit()
-            exit()
-
-    window.blit(background, (0, 0))
-    pygame.display.update()
-    clock.tick(24)
-
-    class Player():
+class Player():
         def __init__(self, x, y):
             super().__init__()
 
@@ -41,3 +31,24 @@ while True:
         
         def update(self):
             self.rect.x += self.change_x
+
+player = Player(200, 200)
+
+def draw():
+    window.fill((128, 128, 128))
+    window.blit(player.image, player.rect)
+
+
+while True: 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: 
+            pygame.quit()
+            exit()
+    
+    player.update()
+    draw()
+
+    window.blit(background, (0, 0))
+    pygame.display.update()
+    clock.tick(24)
+
