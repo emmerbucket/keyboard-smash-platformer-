@@ -36,7 +36,7 @@ class Player():
             self.rect.x += self.change_x
 
 class Floor():
-     def __init__(self, y=GAME_HEIGHT - 100, width=GAME_WIDTH, height=100):
+     def __init__(self, y=GAME_HEIGHT - 100, width=GAME_WIDTH, height=75):
         super().__init__()
 
         self.image = pygame.Surface([width, height])
