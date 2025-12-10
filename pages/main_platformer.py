@@ -33,6 +33,7 @@ class Player():
 
             self.change_x = 0
             self.change_y = 0
+            self.on_ground = False
         
         def changespeed(self, x, y):
             self.change_x += x
@@ -95,6 +96,18 @@ while True:
     player.change_y += 1 
     
     player.update()
+
+    if floor and player.rect.colliderect(floor.rect):
+        if player.change_y > 0:
+            player.rect.bottom = floor.rect.top
+            player.change_y = 0
+            player.on_ground = True
+        elif player.change_y < 0:
+            player.rect.top = floor.rect.bottom
+            player.change_y = 0
+    else:
+        player.on_ground = False
+
     draw()
 
     pygame.display.update()
