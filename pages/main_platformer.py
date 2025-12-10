@@ -5,6 +5,7 @@ background = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'im
 background = pygame.transform.scale(background, (800, 600))
 walls = []
 player = []
+floor = []
 levelcount = 0
 
 GAME_WIDTH = 800
@@ -36,9 +37,12 @@ class Player():
 
 
 player = Player(200, 200)
+floor = Floor()
 
 def draw():
-    window.fill((128, 128, 128))
+    window.blit(background, (0, 0))
+    if floor:
+        window.blit(floor.image, floor.rect)
     window.blit(player.image, player.rect)
 
 
@@ -61,9 +65,6 @@ while True:
 
     player.update()
     draw()
-
-    window.blit(background, (0, 0))
-    window.blit(player.image, player.rect)
 
     pygame.display.update()
     clock.tick(24)
