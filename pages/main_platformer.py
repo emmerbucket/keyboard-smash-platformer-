@@ -35,6 +35,17 @@ class Player():
         def update(self):
             self.rect.x += self.change_x
 
+class Floor():
+     def __init__(self, y=GAME_HEIGHT - 100, width=GAME_WIDTH, height=100):
+        super().__init__()
+
+        self.image = pygame.Surface([width, height])
+        self.image.fill(color=(123, 228, 229))
+
+        self.rect = self.image.get_rect(topleft=(0, y))
+
+        self.change_x = 0
+        self.change_y = 0
 
 player = Player(200, 200)
 floor = Floor()
