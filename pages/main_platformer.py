@@ -34,6 +34,9 @@ class Player():
         
         def update(self):
             self.rect.x += self.change_x
+            self.rect.y += self.change_y
+
+player = Player(200, 200)
 
 class Floor():
      def __init__(self, y=GAME_HEIGHT - 100, width=GAME_WIDTH, height=100):
@@ -47,7 +50,7 @@ class Floor():
         self.change_x = 0
         self.change_y = 0
 
-player = Player(200, 200)
+
 floor = Floor()
 
 def draw():
@@ -56,6 +59,11 @@ def draw():
         window.blit(floor.image, floor.rect)
     window.blit(player.image, player.rect)
 
+vel = 5
+jump = False
+jumpCount = 0
+jumpMax = 15
+
 
 while True: 
     for event in pygame.event.get():
@@ -63,17 +71,23 @@ while True:
             pygame.quit()
             exit()
 
+        if event.type == pygame.KEYDOWN:
+         if event.key == pygame.K_SPACE and not jump:
+            player.change_y = -15
+            jump = True
+
+
     keys = pygame.key.get_pressed()
 
     player.change_x = 0
-    player.change_y = 0
 
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         player.change_x = -5
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
         player.change_x = 5
-
-
+    
+    player.change_y += 1 
+    
     player.update()
     draw()
 
