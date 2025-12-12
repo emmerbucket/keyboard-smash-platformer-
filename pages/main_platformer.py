@@ -57,7 +57,7 @@ class Floor():
         self.change_x = 0
         self.change_y = 0
 
-floor = None
+floor = Floor()
 
 class Block():
     def __init__(self, x, y):
@@ -127,17 +127,21 @@ while True:
     player.change_x = 0
 
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-        player.change_x = -1
+        player.change_x = -5
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-        player.change_x = 1
+        player.change_x = 5
     
+
+    player.rect.x += player.change_x
+
+
+    player.on_ground = False
+
     player.change_y += 1 
     if player.change_y > 12:
         player.change_y = 12
 
-    player.rect.x += player.change_x
     player.rect.y += player.change_y
-    
     player.on_ground = False
 
     if floor and player.rect.colliderect(floor.rect):
