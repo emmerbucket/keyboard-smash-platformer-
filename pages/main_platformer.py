@@ -45,20 +45,6 @@ class Player():
 
 player = Player(200, 200)
 
-class Floor():
-     def __init__(self, y=GAME_HEIGHT - 75, width=GAME_WIDTH, height=75):
-        super().__init__()
-
-        floor_img = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', 'Tileable pixel art wood.png'))
-        self.image = pygame.transform.scale(floor_img, (width, height))
-
-        self.rect = self.image.get_rect(topleft=(0, y))
-
-        self.change_x = 0
-        self.change_y = 0
-
-floor = Floor()
-
 class Block():
     def __init__(self, x, y):
         self.x = x
@@ -103,8 +89,6 @@ def draw():
     for block in blocklist:
         window.blit(block.image, block.rect)
     window.blit(player.image, player.rect)
-    if floor:
-        window.blit(floor.image, floor.rect)
 
 vel = 1
 jumpCount = 0
@@ -141,15 +125,6 @@ while True:
             player.change_y = 12
 
     player.rect.y += player.change_y
-
-    if floor and player.rect.colliderect(floor.rect):
-        if player.change_y > 0:
-            player.rect.bottom = floor.rect.top
-            player.change_y = 0
-            player.on_ground = True
-        elif player.change_y < 0:
-            player.rect.top = floor.rect.bottom
-            player.change_y = 0
 
     # horizontal collision
     for block in blocklist:
