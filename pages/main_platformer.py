@@ -125,6 +125,7 @@ while True:
     keys = pygame.key.get_pressed()
 
     player.change_x = 0
+    player.on_ground = False
 
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         player.change_x = -5
@@ -134,15 +135,12 @@ while True:
 
     player.rect.x += player.change_x
 
-
-    player.on_ground = False
-
-    player.change_y += 1 
+    if not player.on_ground:
+            player.change_y += 1 
     if player.change_y > 12:
-        player.change_y = 12
+            player.change_y = 12
 
     player.rect.y += player.change_y
-    player.on_ground = False
 
     if floor and player.rect.colliderect(floor.rect):
         if player.change_y > 0:
@@ -155,7 +153,7 @@ while True:
 
     # horizontal collision
     for block in blocklist:
-        if player.rect.colliderect(block.rect):
+        if player.rect.colliderect(block.rect) and player.rect.right <= block.rect.left - 0.1 and player.rect.right <= block.rect.centerx:
             if player.change_x > 0:
                 player.rect.right = block.rect.left
                 break
@@ -167,8 +165,8 @@ while True:
     for block in blocklist:
         if player.rect.colliderect(block.rect):
             if player.change_y > 0:
-                player.rect.bottom = block.rect.top
                 player.change_y = 0
+                player.rect.bottom = block.rect.top
                 player.on_ground = True
                 break
             elif player.change_y < 0:
@@ -176,6 +174,7 @@ while True:
                 player.change_y = 0
                 break
 
+    
     draw()
 
     pygame.display.update()
