@@ -334,35 +334,11 @@ while True:
         player.change_y = 0
         dash_timer -= 1
 
-    # horizontal collision
-    for block in blocklist:
-        if player.rect.colliderect(block.rect):
-            if player.change_x > 0:
-                player.rect.right = block.rect.left
-            elif player.change_x < 0:
-                player.rect.left = block.rect.right
-            player.change_x = 0
-            break
-
     # houdt player horizontaal in window
     if player.rect.left < 0:
         player.rect.left = 0
     if player.rect.right > GAME_WIDTH:
         player.rect.right = GAME_WIDTH
-
-    # vertical collision
-    player.on_ground = False
-    for block in blocklist:
-        if player.rect.colliderect(block.rect):
-            if player.change_y > 0:
-                player.rect.bottom = block.rect.top
-                player.on_ground = True
-                dash_available = True
-                break
-            elif player.change_y < 0:
-                player.rect.top = block.rect.bottom
-            player.change_y = 0
-            break
 
     # window vertical borders (expres geen top border)
     if player.rect.bottom > GAME_HEIGHT:
@@ -371,8 +347,6 @@ while True:
         player.on_ground = True
 
     player.change_x = 0
-    # Reset on_ground here; will be set during vertical collision if standing on a block
-    player.on_ground = False
 
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         player.change_x = -5
@@ -404,48 +378,48 @@ while True:
             if player.change_y > 12:
                 player.change_y = 12
 
+    # horizontal collisions
     player.rect.x += player.change_x
 
     for block in blocklist:
-        if player.rect.colliderect(block.rect) and player.rect.right <= block.rect.left - 0.1 and player.rect.right <= block.rect.centerx:
+        if player.rect.colliderect(block.rect):
             if player.change_x > 0:
                 player.rect.right = block.rect.left
             elif player.change_x < 0:
                 player.rect.left = block.rect.right
             player.change_x = 0
-            break
 
+    # vertical collisions
     player.rect.y += player.change_y
     player.on_ground = False
-
+    
     for block in blocklist:
         if player.rect.colliderect(block.rect):
             if player.change_y > 0:
+                player.change_y = 0
                 player.rect.bottom = block.rect.top
                 player.on_ground = True
                 dash_available = True
+                break
             elif player.change_y < 0:
                 player.rect.top = block.rect.bottom
+                player.change_y = 0
+                break
             player.change_y = 0
             break
+
+        for hazard in hazardlist:
+            if player.rect.colliderect(hazard.rect):
+                player.rect.x = 50
+                player.rect.y = 550
+                player.change_y = 0
+                break
 
         if player.rect.colliderect(hazard.hitbox):
                 player.rect.x = 50
                 player.rect.y = 550
                 player.change_y = 0
                 break
-
-    # houd player horizontaal in window
-    if player.rect.left < 0:
-        player.rect.left = 0
-    if player.rect.right > GAME_WIDTH:
-        player.rect.right = GAME_WIDTH
-
-    # window vertical floor
-    if player.rect.bottom > GAME_HEIGHT:
-        player.rect.bottom = GAME_HEIGHT
-        player.change_y = 0
-        player.on_ground = True
 
     draw()
 
