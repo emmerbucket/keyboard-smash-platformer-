@@ -43,8 +43,10 @@ class Player():
         def update(self):
             self.rect.x += self.change_x
             self.rect.y += self.change_y
-
+        
 player = Player(200, 200)
+facing_left = False
+facing_right = True
 
 class Block():
     def __init__(self, x, y):
@@ -299,12 +301,28 @@ while True:
 
     player.change_x = 0
     player.on_ground = False
-
+    
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         player.change_x = -5
+        facing_left = True
+        facing_right = False
+
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
         player.change_x = 5
+        facing_left = False
+        facing_right = True
     
+    # dash in progress
+    if keys[pygame.K_LSHIFT]:
+        if facing_left:
+            player.change_x -= 15
+            facing_left = True
+            facing_right = False
+
+        if facing_right:
+            player.change_x += 15
+            facing_left = False
+            facing_right = True
 
     player.rect.x += player.change_x
 
