@@ -17,6 +17,8 @@ player = []
 
 GAME_WIDTH = 800
 GAME_HEIGHT = 600
+dash_timer = 0
+dash_lengte = 8 
 
 pygame.init()
 window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT ))
@@ -47,6 +49,7 @@ class Player():
 player = Player(200, 200)
 facing_left = False
 facing_right = True
+dash_available = True
 
 class Block():
     def __init__(self, x, y):
@@ -311,28 +314,33 @@ while True:
         player.change_x = 5
         facing_left = False
         facing_right = True
-    
-    # dash in progress
-    if keys[pygame.K_LSHIFT]:
-        if facing_left:
-            player.change_x -= 15
-            facing_left = True
-            facing_right = False
 
-        if facing_right:
-            player.change_x += 15
-            facing_left = False
-            facing_right = True
+
+    if keys[pygame.K_LSHIFT] and dash_timer == 0 and dash_available and not player.on_ground:
+        dash_timer = dash_lengte
+        player.change_y = 0
+        if not player.on_ground:
+            dash_available = False
+
+    if dash_timer > 0:
+        if facing_left:
+            player.change_x = -20
+        elif facing_right:
+            player.change_x = 20
+
+        player.change_y = 0  
+        dash_timer -= 1
+
+    else:
+        if not player.on_ground:
+            player.change_y += 1
+            if player.change_y > 12:
+                    player.change_y = 12
+
 
     player.rect.x += player.change_x
-
-    if not player.on_ground:
-            player.change_y += 1 
-    if player.change_y > 12:
-            player.change_y = 12
-
     player.rect.y += player.change_y
-
+    
     # horizontal collision
     for block in blocklist:
         if player.rect.colliderect(block.rect) and player.rect.right <= block.rect.left - 0.1 and player.rect.right <= block.rect.centerx:
@@ -350,6 +358,7 @@ while True:
                 player.change_y = 0
                 player.rect.bottom = block.rect.top
                 player.on_ground = True
+                dash_available = True
                 break
             elif player.change_y < 0:
                 player.rect.top = block.rect.bottom
