@@ -309,10 +309,8 @@ while True:
                 load_level(level_index)
 
     keys = pygame.key.get_pressed()
-
     player.change_x = 0
-    player.on_ground = False
-    
+
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
         player.change_x = -5
         facing_left = True
@@ -323,32 +321,19 @@ while True:
         facing_left = False
         facing_right = True
 
-
     if keys[pygame.K_LSHIFT] and dash_timer == 0 and dash_available and not player.on_ground:
         dash_timer = dash_lengte
         player.change_y = 0
-        if not player.on_ground:
-            dash_available = False
+        dash_available = False
 
     if dash_timer > 0:
         if facing_left:
             player.change_x = -20
         elif facing_right:
             player.change_x = 20
-
-        player.change_y = 0  
+        player.change_y = 0
         dash_timer -= 1
 
-    else:
-        if not player.on_ground:
-            player.change_y += 1
-            if player.change_y > 12:
-                    player.change_y = 12
-
-
-    player.rect.x += player.change_x
-    player.rect.y += player.change_y
-    
     # horizontal collision
     for block in blocklist:
         if player.rect.colliderect(block.rect):
@@ -364,15 +349,6 @@ while True:
         player.rect.left = 0
     if player.rect.right > GAME_WIDTH:
         player.rect.right = GAME_WIDTH
-
-    # gravity
-    if not player.on_ground:
-        player.change_y += 1
-        if player.change_y > 12:
-            player.change_y = 12
-
-    
-    player.rect.y += player.change_y
 
     # vertical collision
     player.on_ground = False
@@ -394,14 +370,83 @@ while True:
         player.change_y = 0
         player.on_ground = True
 
-    for hazard in hazardlist:
-        if player.rect.colliderect(hazard.rect):
-            if player.rect.colliderect(hazard.hitbox):
+    player.change_x = 0
+    # Reset on_ground here; will be set during vertical collision if standing on a block
+    player.on_ground = False
+
+    if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+        player.change_x = -5
+        facing_left = True
+        facing_right = False
+    if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+        player.change_x = 5
+        facing_left = False
+        facing_right = True
+
+    # DASH start
+    if keys[pygame.K_LSHIFT] and dash_timer == 0 and dash_available and not player.on_ground:
+        dash_timer = dash_lengte
+        player.change_y = 0
+        dash_available = False
+
+    # DASH handling (overrides horizontal speed while active)
+    if dash_timer > 0:
+        player.change_y = 0
+        if facing_left:
+            player.change_x = -20
+        elif facing_right:
+            player.change_x = 20
+        dash_timer -= 1
+    else:
+        # apply gravity only when not dashing
+        if not player.on_ground:
+            player.change_y += 1
+            if player.change_y > 12:
+                player.change_y = 12
+
+    player.rect.x += player.change_x
+
+    for block in blocklist:
+        if player.rect.colliderect(block.rect) and player.rect.right <= block.rect.left - 0.1 and player.rect.right <= block.rect.centerx:
+            if player.change_x > 0:
+                player.rect.right = block.rect.left
+            elif player.change_x < 0:
+                player.rect.left = block.rect.right
+            player.change_x = 0
+            break
+
+    player.rect.y += player.change_y
+    player.on_ground = False
+
+    for block in blocklist:
+        if player.rect.colliderect(block.rect):
+            if player.change_y > 0:
+                player.rect.bottom = block.rect.top
+                player.on_ground = True
+                dash_available = True
+            elif player.change_y < 0:
+                player.rect.top = block.rect.bottom
+            player.change_y = 0
+            break
+
+        if player.rect.colliderect(hazard.hitbox):
                 player.rect.x = 50
                 player.rect.y = 550
                 player.change_y = 0
                 break
-         
+
+    # houd player horizontaal in window
+    if player.rect.left < 0:
+        player.rect.left = 0
+    if player.rect.right > GAME_WIDTH:
+        player.rect.right = GAME_WIDTH
+
+    # window vertical floor
+    if player.rect.bottom > GAME_HEIGHT:
+        player.rect.bottom = GAME_HEIGHT
+        player.change_y = 0
+        player.on_ground = True
+
     draw()
 
     pygame.display.update()
