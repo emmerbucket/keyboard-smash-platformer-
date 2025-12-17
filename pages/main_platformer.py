@@ -5,6 +5,7 @@ backgrounds = []
 bg_files = ['orangetree.png', 'mountains2.png', 'snowyhouse.png', 'library.png', 'christmasbackground1.png', 'christmasbackground2.png']
 block_images = ['jdirt.png', 'rocks.png', 'woodlog.png', 'tiles.png', 'better wood floor.png', 'better wood floor.png']
 hazard_images = ['spike.png']
+portal_images = ['portal.png']
 
 for bg_file in bg_files:
     bg_image = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', bg_file))
@@ -69,6 +70,17 @@ class Hazard():
         self.image = pygame.transform.scale(hazard_img, (self.width, self.height))
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
+class Portal():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.width = 32
+        self.height = 32
+        self.image = pygame.Surface([self.width, self.height])
+        portal_img = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', portal_images[0]))
+        self.image = pygame.transform.scale(portal_img, (self.width, self.height))
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+
 level1 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,1,0,1,0,0,1,1,1,0,0,1,0,0,0,0,1,0,0,0,0,1,1,1,0],
@@ -85,15 +97,15 @@ level1 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
 level2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,2,2,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,2,0,0,2,0,0,0,0],
     [0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
     [0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
@@ -106,7 +118,7 @@ level2 = [
     [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0],
     [0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,3,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,1,1,1,0],
     [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2],
@@ -118,17 +130,17 @@ level3 = [
     [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,1,1,1,0,0,0,0,0,0],
     [0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,1,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,2,0,0,0,0],
-    [0,0,0,0,0,2,0,0,0,1,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0],
+    [0,0,0,0,0,2,2,0,0,1,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0],
     [0,0,0,0,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0],
-    [0,0,2,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0],
+    [0,0,2,0,0,0,0,0,0,1,0,0,3,0,0,1,0,0,0,0,0,1,1,0,0],
     [0,0,1,1,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,2,0,1,0,1,0,1,0,1,0,2,0,0,0,0,0,0,0],
     [0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,2,2,2,0],
     [0,1,1,1,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,1,1,1,0],
     [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,1,1,1,2,2,2,2,2,2,2],
@@ -227,13 +239,14 @@ levels = [level1, level2, level3, level4, level5, level6, level7]
 level_index = 0
 
 def load_level(new_level_index):
-    global blocklist, hazardlist, current_level_index, current_bg_index, level_index
+    global blocklist, hazardlist, portallist,  current_level_index, current_bg_index, level_index
     level_index = new_level_index
     current_level_index = new_level_index
     current_bg_index = new_level_index
 
     blocklist = []
     hazardlist = []
+    portallist = []
     level = levels[level_index]
     block_img = block_images[level_index]
     for y in range(len(level)):
@@ -242,6 +255,8 @@ def load_level(new_level_index):
                 blocklist.append(Block(x * 32, y * 32))
             elif level[y][x] == 2:
                 hazardlist.append(Hazard(x * 32, y * 32,))
+            elif level[y][x] == 3:
+                portallist.append(Portal(x * 32, y * 32))
 
     player.rect.x = 50
     player.rect.y = 550
@@ -253,6 +268,8 @@ def draw():
         window.blit(block.image, block.rect)
     for hazard in hazardlist:
         window.blit(hazard.image, hazard.rect)
+    for portal in portallist:
+        window.blit(portal.image, portal.rect)
     window.blit(player.image, player.rect)
 
 vel = 1
@@ -276,8 +293,9 @@ while True:
             player.change_y = -15
             player.on_ground = False
          if event.key == pygame.K_w or event.key == pygame.K_UP:
-            level_index = (level_index + 1) % len(levels)
-            load_level(level_index)
+            if any(player.rect.colliderect(portal.rect) for portal in portallist):
+                level_index = (level_index + 1) % len(levels)
+                load_level(level_index)
 
     keys = pygame.key.get_pressed()
 
