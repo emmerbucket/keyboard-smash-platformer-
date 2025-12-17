@@ -2,7 +2,9 @@ import pygame
 import os
 
 backgrounds = []
-bg_files = ['orangetree.png', 'mountains.png', 'snowyhouse.png', 'library.png', 'christmasbackground1.png', 'christmasbackground2.png']
+bg_files = ['orangetree.png', 'mountains2.png', 'snowyhouse.png', 'library.png', 'christmasbackground1.png', 'christmasbackground2.png']
+block_images = ['jdirt.png', 'rocks.png', 'woodlog.png', 'tiles.png', 'better wood floor.png', 'better wood floor.png']
+hazard_images = ['spike.png']
 
 for bg_file in bg_files:
     bg_image = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', bg_file))
@@ -17,7 +19,7 @@ GAME_HEIGHT = 600
 
 pygame.init()
 window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT ))
-pygame.display.set_caption("Keyboard Smash")
+pygame.display.set_caption("Journey")
 clock = pygame.time.Clock()
 
 class Player():
@@ -50,8 +52,19 @@ class Block():
         self.width = 32
         self.height = 32
         self.image = pygame.Surface([self.width, self.height])
-        floor_img = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', 'jdirt.png'))
+        floor_img = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', block_images[level_index]))
         self.image = pygame.transform.scale(floor_img, (self.width, self.height))
+        self.rect = self.image.get_rect(topleft=(self.x, self.y))
+
+class Hazard():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.width = 32
+        self.height = 32
+        self.image = pygame.Surface([self.width, self.height])
+        hazard_img = pygame.image.load(os.path.join(os.path.dirname(__file__), '..', 'images', hazard_images[0]))
+        self.image = pygame.transform.scale(hazard_img, (self.width, self.height))
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
 level1 = [
@@ -79,44 +92,44 @@ level1 = [
 level2 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,2,0,0,2,0,0,0,0],
     [0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
-    [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
+    [0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
+    [0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1,0,1,0,0,1,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,1,0,0,1,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
+    [0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
     [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
     [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0],
     [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,1,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,0,0,0,0,1,1,1,0],
     [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
 level3 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0],
-    [0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0],
-    [0,0,0,0,1,1,1,0,0,1,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,1,1,1,0,0,0,0,0,0],
+    [0,0,0,0,0,0,1,1,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0],
+    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,2,0,0,0,0],
+    [0,0,0,0,0,2,0,0,0,1,0,0,0,0,0,1,0,0,1,1,1,0,0,0,0],
+    [0,0,0,0,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0],
+    [0,0,2,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0],
+    [0,0,1,1,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-    [0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
-    [0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0],
-    [0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,2,0,1,0,1,0,1,0,1,0,2,0,0,0,0,0,0,0],
     [0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,1,1,1,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,1,1,1,0],
     [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,1,1,1,2,2,2,2,2,2,2],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
@@ -211,33 +224,44 @@ level7 = [
 levels = [level1, level2, level3, level4, level5, level6, level7]
 level_index = 0
 
-def load_level(level_index):
-    global blocklist, current_level_index, current_bg_index
-    current_level_index = level_index
-    current_bg_index = level_index
+def load_level(new_level_index):
+    global blocklist, hazardlist, current_level_index, current_bg_index, level_index
+    level_index = new_level_index
+    current_level_index = new_level_index
+    current_bg_index = new_level_index
 
-blocklist = []
-level = levels[level_index]
-for y in range(len(level)):
-    for x in range(len(level[y])):
-        if level1[y][x] == 1:
-            blocklist.append(Block(x * 32, y * 32))
+    blocklist = []
+    hazardlist = []
+    level = levels[level_index]
+    block_img = block_images[level_index]
+    for y in range(len(level)):
+        for x in range(len(level[y])):
+            if level[y][x] == 1:
+                blocklist.append(Block(x * 32, y * 32))
+            elif level[y][x] == 2:
+                hazardlist.append(Hazard(x * 32, y * 32,))
 
-player.rect.x = 200
-player.rect.y = 200
-player.change_y = 0
+    player.rect.x = 50
+    player.rect.y = 550
+    player.change_y = 0
 
 def draw():
     window.blit(backgrounds[current_bg_index], (0, 0))
     for block in blocklist:
         window.blit(block.image, block.rect)
+    for hazard in hazardlist:
+        window.blit(hazard.image, hazard.rect)
     window.blit(player.image, player.rect)
 
 vel = 1
 jumpCount = 0
 jumpMax = 15
 
+blocklist = []
+hazardlist = []
 load_level(level_index)
+
+level_index = 0
 
 while True: 
     for event in pygame.event.get():
@@ -250,7 +274,8 @@ while True:
             player.change_y = -15
             player.on_ground = False
          if event.key == pygame.K_w or event.key == pygame.K_UP:
-            load_level((level_index + 1) % len(levels))
+            level_index = (level_index + 1) % len(levels)
+            load_level(level_index)
 
     keys = pygame.key.get_pressed()
 
@@ -295,7 +320,13 @@ while True:
                 player.change_y = 0
                 break
 
-    
+    for hazard in hazardlist:
+        if player.rect.colliderect(hazard.rect):
+            player.rect.x = 50
+            player.rect.y = 550
+            player.change_y = 0
+            break
+
     draw()
 
     pygame.display.update()
