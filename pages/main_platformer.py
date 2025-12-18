@@ -25,6 +25,25 @@ window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT ))
 pygame.display.set_caption("Journey")
 clock = pygame.time.Clock()
 
+menu = "menu"
+game = "game"
+
+game_state = menu
+
+font_big = pygame.font.SysFont("Comic Sans", 72)
+font_small = pygame.font.SysFont("Comic Sans", 36)
+
+def draw_menu():
+    window.fill((20, 20, 40))
+
+    title = font_big.render("Journey", True, (255, 255, 255))
+    start_text = font_small.render("Press ENTER to Start", True, (200, 200, 200))
+    quit_text = font_small.render("Press ESC to Quit", True, (200, 200, 200))
+
+    window.blit(title, (GAME_WIDTH // 2 - title.get_width() // 2, 180))
+    window.blit(start_text, (GAME_WIDTH // 2 - start_text.get_width() // 2, 300))
+    window.blit(quit_text, (GAME_WIDTH // 2 - quit_text.get_width() // 2, 350))
+
 class Player():
         def __init__(self, x, y):
             super().__init__()
@@ -298,15 +317,26 @@ while True:
         if event.type == pygame.QUIT: 
             pygame.quit()
             exit()
+        
+        if game_state == menu:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    load_level(0)        
+                    game_state = game
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+                    exit()
 
-        if event.type == pygame.KEYDOWN:
-         if event.key == pygame.K_SPACE and player.on_ground:
-            player.change_y = -15
-            player.on_ground = False
-         if event.key == pygame.K_w or event.key == pygame.K_UP:
-            if any(player.rect.colliderect(portal.rect) for portal in portallist):
-                level_index = (level_index + 1) % len(levels)
-                load_level(level_index)
+        elif game_state == game:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and player.on_ground:
+                    player.change_y = -15
+                    player.on_ground = False
+  
+                elif event.key == pygame.K_w or event.key == pygame.K_UP:
+                 if any(player.rect.colliderect(portal.rect) for portal in portallist):
+                    level_index = (level_index + 1) % len(levels)
+                    load_level(level_index)
 
     keys = pygame.key.get_pressed()
     player.change_x = 0
@@ -421,7 +451,10 @@ while True:
                 player.change_y = 0
                 break
 
-    draw()
+    if game_state == menu:
+        draw_menu()
+    elif game_state == game:
+        draw()
 
     pygame.display.update()
     clock.tick(24)
