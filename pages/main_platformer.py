@@ -34,7 +34,8 @@ font_big = pygame.font.SysFont("Comic Sans", 72)
 font_small = pygame.font.SysFont("Comic Sans", 36)
 
 def draw_menu():
-    window.fill((20, 20, 40))
+    #change menu bg here
+    window.fill((20, 100, 60))
 
     title = font_big.render("Journey", True, (255, 255, 255))
     start_text = font_small.render("Press ENTER to Start", True, (200, 200, 200))
