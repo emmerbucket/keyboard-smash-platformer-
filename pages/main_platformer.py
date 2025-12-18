@@ -114,23 +114,23 @@ class Portal():
 
 level1 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,1,0,1,0,0,1,1,1,0,0,1,0,0,0,0,1,0,0,0,0,1,1,1,0],
+    [0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,1,0],
+    [0,1,1,1,0,0,1,1,1,0,0,1,0,0,0,0,1,0,0,0,0,1,0,1,0],
+    [0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,1,0],
+    [0,1,0,1,0,0,1,1,1,0,0,1,1,1,0,0,1,1,1,0,0,1,1,1,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
@@ -238,7 +238,7 @@ level6 = [
     [0,0,0,0,2,0,2,0,0,0,0,0,0,1,2,0,0,0,0,0,0,1,1,1,1],
     [0,0,0,1,1,0,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,3,0],
-    [0,2,0,2,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1],
+    [0,2,0,2,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1],
     [0,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,2,1,2,2,2,0,0,0,1,2,2,2,2,2,2,2,2,2,2,2],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
@@ -335,11 +335,11 @@ while True:
                     player.on_ground = False
   
                 elif event.key == pygame.K_w or event.key == pygame.K_UP:
-                 if any(player.rect.colliderect(portal.rect) for portal in portallist):
-                    level_index = (level_index + 1) % len(levels)
-                    load_level(level_index)
+                      if any(player.rect.colliderect(portal.rect) for portal in portallist):
+                        level_index = (level_index + 1) % len(levels)
+                        load_level(level_index)
 
-    keys = pygame.key.get_pressed()
+    keys = pygame.key.get_pressed() 
     player.change_x = 0
 
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
@@ -357,12 +357,13 @@ while True:
         player.change_y = 0
         dash_available = False
 
+    player.on_ground = False
+
     if dash_timer > 0:
         if facing_left:
             player.change_x = -20
         elif facing_right:
             player.change_x = 20
-        player.change_y = 0
         dash_timer -= 1
 
     # houdt player horizontaal in window
@@ -376,17 +377,8 @@ while True:
         player.rect.bottom = GAME_HEIGHT
         player.change_y = 0
         player.on_ground = True
+        dash_available = True
 
-    player.change_x = 0
-
-    if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-        player.change_x = -5
-        facing_left = True
-        facing_right = False
-    if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-        player.change_x = 5
-        facing_left = False
-        facing_right = True
 
     # DASH start
     if keys[pygame.K_LSHIFT] and dash_timer == 0 and dash_available and not player.on_ground:
@@ -396,7 +388,6 @@ while True:
 
     # DASH handling (overrides horizontal speed while active)
     if dash_timer > 0:
-        player.change_y = 0
         if facing_left:
             player.change_x = -20
         elif facing_right:
@@ -422,7 +413,7 @@ while True:
 
     # vertical collisions
     player.rect.y += player.change_y
-    player.on_ground = False
+
     
     for block in blocklist:
         if player.rect.colliderect(block.rect):
