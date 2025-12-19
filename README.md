@@ -1,5 +1,5 @@
 # -Keyboard smash-
-Een platformer met inspiratie van Celeste. gemaakt voor een Informatica PO.
+Een platformer over jou reis teurg naar huis. gemaakt voor een Informatica PO.
 
 # Credits
 Sprites & art - Jayvin Kortink | github: https://github.com/JayvinImperialSupport
@@ -8,4 +8,7 @@ Player character interactions & abilities - Ola Makowska | github: https://githu
 
 Environment & hazard interactions - Steyn Lohmeijer | github: https://github.com/emmerbucket
 
-Backgrounds & Debugging - Kylian Schenk | github: https://github.com/LookAtThese1
+Backgrounds & playtesting - Kylian Schenk | github: https://github.com/LookAtThese1
+
+# Installation
+The game can be downloaded as a zip file and played like that.
