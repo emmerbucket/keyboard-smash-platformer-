@@ -1,5 +1,5 @@
 # Journey
-Een platformer over jou reis terug naar huis. gemaakt voor een Informatica PO.
+Een platformer over jou reis terug naar huis voor kerst. gemaakt voor een Informatica PO.
 
 # Credits
 Sprites & art - Jayvin Kortink | github: https://github.com/JayvinImperialSupport
@@ -12,3 +12,5 @@ Backgrounds & playtesting - Kylian Schenk | github: https://github.com/LookAtThe
 
 # Installatie & Gebruik
 Om de game te installeren kan je gewoon de zip-file downloaden. Als je dan de file unzipt kan je de game spelen.
+
+Veel speelplezier!
