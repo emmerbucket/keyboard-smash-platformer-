@@ -50,7 +50,7 @@ class Player():
             super().__init__()
 
             self.image = pygame.Surface([15, 15])
-            self.image.fill(color=(255, 255, 255))
+            self.image.fill(color=(0, 129, 175))
 
             self.rect = self.image.get_rect(topleft=(x, y))
 
