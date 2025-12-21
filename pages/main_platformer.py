@@ -45,18 +45,118 @@ def draw_menu():
     window.blit(start_text, (GAME_WIDTH // 2 - start_text.get_width() // 2, 300))
     window.blit(quit_text, (GAME_WIDTH // 2 - quit_text.get_width() // 2, 350))
 
-class Player():
-        def __init__(self, x, y):
-            super().__init__()
+class Player(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
 
-            self.image = pygame.Surface([15, 15])
-            self.image.fill(color=(255, 255, 255))
+        # Animation setup
+        self.animations = {"idle": [], "run": [], "jump": []}
+        self.state = "idle"
+        self.frame_index = 0
+        self.animation_speed = 0.2
 
-            self.rect = self.image.get_rect(topleft=(x, y))
+        # Load animations
+        for state in self.animations.keys():
+            folder = os.path.join("player", state)
+            if os.path.exists(folder):
+                for file in sorted(os.listdir(folder)):
+                    if file.endswith(".png"):
+                        path = os.path.join(folder, file)
+                        image = pygame.image.load(path).convert_alpha()
+                        self.animations[state].append(image)
 
-            self.change_x = 0
-            self.change_y = 0
+        # Make sure we have at least one frame for each animation
+        for state in self.animations:
+            if len(self.animations[state]) == 0:
+                # Create a placeholder if no frames
+                surf = pygame.Surface((15, 15), pygame.SRCALPHA)
+                surf.fill((255, 0, 255))
+                self.animations[state].append(surf)
+
+        # Set initial image and rect
+        self.image = self.animations[self.state][0]
+        self.rect = self.image.get_rect(topleft=(x, y))
+
+        # Physics
+        self.change_x = 0
+        self.change_y = 0
+        self.on_ground = False
+
+    def update(self, blocks):
+        self.handle_movement()
+        self.apply_gravity()
+        self.horizontal_collisions(blocks)
+        self.vertical_collisions(blocks)
+        self.update_animation()
+
+    def handle_movement(self):
+        keys = pygame.key.get_pressed()
+        self.change_x = 0
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+            self.change_x = -5
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+            self.change_x = 5
+        if keys[pygame.K_SPACE] and self.on_ground:
+            self.change_y = -15
             self.on_ground = False
+
+        self.rect.x += self.change_x
+
+    def apply_gravity(self):
+        if not self.on_ground:
+            self.change_y += 1
+            if self.change_y > 12:
+                self.change_y = 12
+        self.rect.y += self.change_y
+
+    def horizontal_collisions(self, blocks):
+        for block in blocks:
+            if self.rect.colliderect(block.rect):
+                if self.change_x > 0:
+                    self.rect.right = block.rect.left
+                elif self.change_x < 0:
+                    self.rect.left = block.rect.right
+
+    def vertical_collisions(self, blocks):
+        self.on_ground = False
+        for block in blocks:
+            if self.rect.colliderect(block.rect):
+                if self.change_y > 0:
+                    self.rect.bottom = block.rect.top
+                    self.change_y = 0
+                    self.on_ground = True
+                elif self.change_y < 0:
+                    self.rect.top = block.rect.bottom
+                    self.change_y = 0
+
+    def update_animation(self):
+        # Determine state
+        if not self.on_ground:
+            self.state = "jump"
+        elif self.change_x != 0:
+            self.state = "run"
+        else:
+            self.state = "idle"
+
+        # Update frame
+        self.frame_index += self.animation_speed
+        if self.frame_index >= len(self.animations[self.state]):
+            self.frame_index = 0
+        self.image = self.animations[self.state][int(self.frame_index)]
+
+    def update_animation(self):
+        if not self.on_ground:
+            self.state = "jump"
+        elif self.change_x != 0:
+            self.state = "run"
+        else:
+            self.state = "idle"
+
+        self.frame += 0.2
+        if self.frame >= len(self.animations[self.state]):
+            self.frame = 0
+
+        self.image = self.animations[self.state][int(self.frame)]
         
         def changespeed(self, x, y):
             self.change_x += x
