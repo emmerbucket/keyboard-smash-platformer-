@@ -20,6 +20,7 @@ GAME_HEIGHT = 600
 dash_timer = 0
 dash_lengte = 8 
 
+# menu code
 pygame.init()
 window = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT ))
 pygame.display.set_caption("Journey")
@@ -45,6 +46,7 @@ def draw_menu():
     window.blit(start_text, (GAME_WIDTH // 2 - start_text.get_width() // 2, 300))
     window.blit(quit_text, (GAME_WIDTH // 2 - quit_text.get_width() // 2, 350))
 
+# classes beginnen hier
 class Player():
         def __init__(self, x, y):
             super().__init__()
@@ -112,6 +114,7 @@ class Portal():
         self.image = pygame.transform.scale(portal_img, (self.width, self.height))
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
 
+# levels beginnen hier
 level1 = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -269,6 +272,7 @@ level7 = [
 levels = [level1, level2, level3, level4, level5, level6, level7]
 level_index = 0
 
+# laad level functie
 def load_level(new_level_index):
     global blocklist, hazardlist, portallist,  current_level_index, current_bg_index, level_index
     level_index = new_level_index
@@ -293,6 +297,7 @@ def load_level(new_level_index):
     player.rect.y = 550
     player.change_y = 0
 
+# volgorde waarin dingen op het scherm getekend worden
 def draw():
     window.blit(backgrounds[current_bg_index], (0, 0))
     for block in blocklist:
@@ -313,6 +318,7 @@ load_level(level_index)
 
 level_index = 0
 
+# voor het starten van het spel, springen en naar volgende level gaan
 while True: 
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
@@ -339,6 +345,7 @@ while True:
                         level_index = (level_index + 1) % len(levels)
                         load_level(level_index)
 
+    # player links rechts movement
     keys = pygame.key.get_pressed() 
     player.change_x = 0
 
@@ -414,7 +421,7 @@ while True:
     # vertical collisions
     player.rect.y += player.change_y
 
-    
+    # block top & bottom collisions
     for block in blocklist:
         if player.rect.colliderect(block.rect):
             if player.change_y > 0:
@@ -430,7 +437,7 @@ while True:
             player.change_y = 0
             break
 
-        
+        #hazard collisions
         for hazard in hazardlist:
             if player.rect.colliderect(hazard.hitbox):
                     player.rect.x = 50
